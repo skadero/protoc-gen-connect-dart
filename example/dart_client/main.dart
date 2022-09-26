@@ -7,7 +7,8 @@ import 'rpc/haberdasher/haberdasher.pb.dart';
 import 'rpc/pinger/ping.pb.dart';
 
 Future main(List<String> args) async {
-  final client = HttpConnectClient('http://localhost:9080', http.Client());
+  final hClient = http.Client();
+  final client = HttpConnectClient('http://localhost:9080', hClient);
 
   final hService = ha.HaberdasherClient(client);
 
@@ -18,4 +19,5 @@ Future main(List<String> args) async {
   if (invResponse.isError) {
     print(invResponse.error!.code);
   }
+  hClient.close();
 }
